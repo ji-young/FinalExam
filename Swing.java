@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Vector;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -342,38 +341,7 @@ public class Swing extends JFrame {
 		}
 	}
 
-	public static class loginFrame extends JFrame {
-		JPanel login_north = new JPanel();
-		JPanel login_center = new JPanel();
-		JPanel login_south = new JPanel();
-
-		loginFrame() {
-			super("관리자 로그인");
-			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setLayout(new BorderLayout());
-			JLabel id = new JLabel("아이디");
-			JTextField id_input = new JTextField(10);
-			login_north.add(id);
-			login_north.add(id_input);
-			add(login_north, BorderLayout.NORTH);
-
-			JLabel password = new JLabel("비밀번호");
-			JPasswordField pw_input = new JPasswordField();
-			login_center.add(password);
-			login_center.add(pw_input);
-			add(login_center, BorderLayout.CENTER);
-
-			JButton lbt = new JButton("확인");
-			login_south.add(lbt);
-			add(login_south, BorderLayout.SOUTH);
-
-			setSize(200, 200);
-			setVisible(true);
-
-		}
-
-	}
-
+	
 	public class change_login extends JFrame {
 		JPanel n = new JPanel();
 		JPanel c = new JPanel();
@@ -884,15 +852,16 @@ public class Swing extends JFrame {
 				String id = manager.getLogin().getId();
 				String pw = manager.getLogin().getPw();
 				if (id_input.getText().equals(id)
-						&& pw_input.getText().equals(pw)) {
+						&& manager.encrypt(pw_input.getText()).equals(manager.encrypt(pw))) {
 					setVisible(true);
 					frame.dispose();
+					System.out.println(manager.encrypt(pw));
 				} else if (!id_input.getText().equals("id")) {
 					JOptionPane.showMessageDialog(null, "관리자 계정 아이디가 아닙니다.",
 							"", JOptionPane.ERROR_MESSAGE);
 					id_input.setText("");
 					pw_input.setText("");
-				} else if (!pw_input.getText().equals("pw")) {
+				} else if (!manager.encrypt(pw_input.getText()).equals(manager.encrypt(pw))) {
 					JOptionPane.showMessageDialog(null, "비밀번호를 잘못 입력하셨습니다.",
 							"", JOptionPane.ERROR_MESSAGE);
 					pw_input.setText("");
