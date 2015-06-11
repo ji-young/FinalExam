@@ -58,10 +58,4 @@ public class Book implements Serializable{
 		Object[] list =  {getIsbn(), getTitle(), getAuthor(), getYear(), getPublish(), getPopularity(),getState()};
 		return list;
 	}
-	
-	public static void main(String[] args) {
-		
-
-	}
-
 }
